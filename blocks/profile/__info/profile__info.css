@@ -7,3 +7,11 @@
   text-align: center;
   margin: 14px auto 0;
 }
+
+@media screen and (min-width: 880px) {
+  .profile__info {
+    font-size: 18px;
+    line-height: 22px;
+    text-align: left;
+  }
+}

@@ -11,3 +11,10 @@
   background-repeat: no-repeat;
   margin: 36px auto 0;
 }
+
+@media screen and (min-width: 880px) {
+  .profile__button {
+    width: 150px;
+    margin: 90px 0 0 244px;
+  }
+}

@@ -1,6 +1,15 @@
 .header {
   position: relative;
-  margin-top: 28px;
+  margin: 28px auto 0;
   border-bottom: 1px solid #545454;
   padding-bottom: 31.6px;
+  width: 100%;
+  max-width: 880px;
+}
+
+@media screen and (min-width: 880px) {
+  .header {
+    margin-top: 45px;
+    
+  }
 }

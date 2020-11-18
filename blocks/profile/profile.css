@@ -3,3 +3,9 @@
   flex-direction: column;
   position: relative;
 }
+
+@media screen and (min-width: 880px) {
+  .profile {
+    flex-direction: row;
+  }
+}

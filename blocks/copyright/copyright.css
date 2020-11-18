@@ -6,3 +6,10 @@
   color: #545454;
   margin: 0;
 }
+
+@media screen and (min-width: 880px) {
+  .copyright {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
