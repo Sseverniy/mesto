@@ -11,7 +11,7 @@
 @import url(../blocks/copyright/copyright.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/button/button.css);
-
+@import url(../blocks/popup/popup.css);
 
 /* подключаем элементы*/
 @import url(../blocks/profile/__avatar/profile__avatar.css);
@@ -22,7 +22,13 @@
 @import url(../blocks/card/__pic/card__pic.css);
 @import url(../blocks/card/__place-name/card__place-name.css);
 @import url(../blocks/card/__like/card__like.css);
+@import url(../blocks/popup/__container/popup__container.css);
+@import url(../blocks/popup/__heading/popup__heading.css);
+@import url(../blocks/popup/__input/popup__input.css);
+@import url(../blocks/popup/__save-button/popup__save-button.css);
+@import url(../blocks/popup/__close-button/popup__close-button.css);
 
 
 /* подключаем модификаторы */
 @import url(../blocks/profile/__name/_span_button/profile__name_span_button.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
