@@ -6,3 +6,21 @@
   height: 361px;
   max-width: 282px;
 }
+
+.card:first-child {
+  margin-top: 0;
+}
+
+@media screen and (min-width: 602px) {
+  .card:first-child {
+    margin-top: 20px;
+}
+
+@media screen and (min-width: 880px) {
+  .card {
+    margin: 20px 17px 0 0;
+  }
+  .card:nth-child(3n) {
+    margin-right: 0;
+  }
+}
