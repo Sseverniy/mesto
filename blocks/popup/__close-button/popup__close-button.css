@@ -15,10 +15,10 @@
 @media screen and (min-width: 488px) {
   .popup__close-button {
     background-size: contain;
-    height: 50px;
-    width: 50px;
+    height: 60px;
+    width: 60px;
     padding: 0;
-    right: -42px;
-    top: -40px;
+    right: -49px;
+    top: -50px;
   }
 }

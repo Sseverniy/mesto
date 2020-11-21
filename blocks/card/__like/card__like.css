@@ -1,9 +1,14 @@
 .card__like {
-  position: relative;
-  bottom: 1px;
-  left: 240px;
-  margin: 0;
+  margin: 5px 0 0 0;
   cursor: pointer;
+  background-image: url(../../../images/heart.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 20.76px;
+  height: 20px;
+  padding: 0;
+  border-style: none;
+  background-color: white;
 }
 
 .card__like:active {
