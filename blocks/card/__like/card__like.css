@@ -10,7 +10,3 @@
   border-style: none;
   background-color: white;
 }
-
-.card__like:active {
-  fill: black;
-}

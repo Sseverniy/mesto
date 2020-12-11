@@ -23,7 +23,7 @@
     </section>
 
     <section class="cards">
-      <article class="card">
+      <!-- <article class="card">
         <img class="card__pic" src="images/karachaevo.jpg" alt="Фотография">
         <div class="wrapper">
           <h2 class="card__place-name">Карачаево-Черкессия</h2>
@@ -64,7 +64,7 @@
           <h2 class="card__place-name">Сахалин</h2>
           <button type="button" class="card__like button" aria-label="Поставить лайк"></button>
         </div>        
-      </article>
+      </article> -->
     </section>
   </main>
 
@@ -72,17 +72,48 @@
       <p class="copyright" lang="en">&copy; 2020 Mesto Russia</p>  
   </footer>
 
-  <div class="popup">
+  <div class="popup popup_edit-profile">
     <div class="popup__container">
-      <button type="button" class="popup__close-button button" aria-label="Закрыть окно"></button>
+      <button type="button" class="popup__close-button popup__close-button_edit-profile button" aria-label="Закрыть окно"></button>
       <h3 class="popup__heading">Редактировать профиль</h3>
-      <form class="popup__form" name="edit-form">
+      <form class="popup__form popup__form_edit-profile" name="edit-form">
         <input type="text" class="popup__input popup__input_profile_name" name="profile-name">
         <input type="text" class="popup__input popup__input_profile_info" name="profile-info">
         <button type="submit" class="popup__save-button">Сохранить</button>
       </form> 
     </div>
   </div>
+
+  <div class="popup popup_add-place">
+    <div class="popup__container">
+      <button type="button" class="popup__close-button popup__close-button_add-place button" aria-label="Закрыть окно"></button>
+      <h3 class="popup__heading">Новое место</h3>
+      <form class="popup__form popup__form_add-place" name="picture-form">
+        <input type="text" class="popup__input popup__input_picture_name" name="picture-name" placeholder="Название">
+        <input type="text" class="popup__input popup__input_picture_link" name="picture-link" placeholder="Ссылка на картинку">
+        <button type="submit" class="popup__save-button">Сохранить</button>
+      </form> 
+    </div>
+  </div>
+  
+  <div class="popup popup_image">
+    <div class="popup__image-container">
+      <button type="button" class="popup__close-button popup__close-button_image button" aria-label="Закрыть окно"></button>
+      <img class="popup__picture" id="popup-picture" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg" alt="Камчатка">
+      <h3 class="popup__image-heading">Камчатка</h3>
+    </div>
+  </div>
+
+  <template class="template">
+    <article class="card">
+      <button type="button" class="card__delete button" aria-label="Удалить карточку"></button>
+      <img class="card__pic" src="" alt="" id="card-image">
+      <div class="wrapper">
+        <h2 class="card__place-name"></h2>
+        <button type="button" class="card__like button" aria-label="Поставить лайк"></button>
+      </div>        
+    </article>
+  </template>
   <script src="script.js"></script>
 </body>
 </html>
