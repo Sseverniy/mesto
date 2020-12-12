@@ -1,0 +1,12 @@
+.profile__wrapper {
+  width: fit-content;
+  display: flex;
+  align-items: baseline;
+  margin: 22px auto 0;
+}
+
+@media screen and (min-width: 880px) {
+  .profile__wrapper {
+    margin: 0;
+  }
+}

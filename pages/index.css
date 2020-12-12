@@ -12,7 +12,6 @@
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/button/button.css);
 @import url(../blocks/popup/popup.css);
-@import url(../blocks/wrapper/wrapper.css);
 
 /* подключаем элементы*/
 @import url(../blocks/profile/__avatar/profile__avatar.css);
@@ -21,10 +20,12 @@
 @import url(../blocks/profile/__info/profile__info.css);
 @import url(../blocks/profile/__button/profile__button.css);
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
+@import url(../blocks/profile/__wrapper/profile__wrapper.css);
 @import url(../blocks/card/__pic/card__pic.css);
 @import url(../blocks/card/__place-name/card__place-name.css);
 @import url(../blocks/card/__like/card__like.css);
 @import url(../blocks/card/__delete/card__delete.css);
+@import url(../blocks/card/__wrapper/card__wrapper.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__heading/popup__heading.css);
 @import url(../blocks/popup/__input/popup__input.css);

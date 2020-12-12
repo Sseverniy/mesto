@@ -15,56 +15,18 @@
     <section class="profile">
       <img class="profile__avatar" src="images/kusto.jpg" alt="Фотография Кусто">
       <div class="profile__id">
-        <h1 class="profile__name">Жак-Ив Кусто<button type="button" 
-        class="profile__edit-button button" aria-label="Редактировать профиль"></button></h1>
+        <div class="profile__wrapper">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <button type="button" 
+          class="profile__edit-button button" aria-label="Редактировать профиль"></button>
+        </div>
         <p class="profile__info">Исследователь океана</p>
       </div>  
       <button type="button" class="profile__button button" aria-label="Добавить фото"></button>
     </section>
 
     <section class="cards">
-      <!-- <article class="card">
-        <img class="card__pic" src="images/karachaevo.jpg" alt="Фотография">
-        <div class="wrapper">
-          <h2 class="card__place-name">Карачаево-Черкессия</h2>
-          <button type="button" class="card__like button" aria-label="Поставить лайк"></button>
-        </div>
-      </article>
-      <article class="card">
-        <img class="card__pic" src="images/altai.jpg" alt="Фотография Алтай">
-        <div class="wrapper">
-          <h2 class="card__place-name">Алтай</h2>
-          <button type="button" class="card__like button" aria-label="Поставить лайк"></button>
-        </div>
-      </article>
-      <article class="card">
-        <img class="card__pic" src="images/kamchatka.jpg" alt="Фотография Камчатка">
-        <div class="wrapper">
-          <h2 class="card__place-name">Камчатка</h2>
-          <button type="button" class="card__like button" aria-label="Поставить лайк"></button>
-        </div>
-      </article>
-      <article class="card">
-        <img class="card__pic" src="images/bashkortostan.jpeg" alt="Фотография Инзерские зубчатки">
-        <div class="wrapper">
-          <h2 class="card__place-name">Башкортостан</h2>
-          <button type="button" class="card__like button" aria-label="Поставить лайк"></button>
-        </div>
-      </article>
-      <article class="card">
-        <img class="card__pic" src="images/elbrus.jpg" alt="Фотография Эльбрус">
-        <div class="wrapper">
-          <h2 class="card__place-name">Эльбрус</h2>
-          <button type="button" class="card__like button" aria-label="Поставить лайк"></button>
-        </div>
-      </article>
-      <article class="card">
-        <img class="card__pic" src="images/sahalin.jpg" alt="Фотография Вулкан">
-        <div class="wrapper">
-          <h2 class="card__place-name">Сахалин</h2>
-          <button type="button" class="card__like button" aria-label="Поставить лайк"></button>
-        </div>        
-      </article> -->
+
     </section>
   </main>
 
@@ -77,8 +39,8 @@
       <button type="button" class="popup__close-button popup__close-button_edit-profile button" aria-label="Закрыть окно"></button>
       <h3 class="popup__heading">Редактировать профиль</h3>
       <form class="popup__form popup__form_edit-profile" name="edit-form">
-        <input type="text" class="popup__input popup__input_profile_name" name="profile-name">
-        <input type="text" class="popup__input popup__input_profile_info" name="profile-info">
+        <input type="text" class="popup__input popup__input_profile_name" name="profile-name"  placeholder = "Имя пользователя">
+        <input type="text" class="popup__input popup__input_profile_info" name="profile-info" placeholder = "Описание">
         <button type="submit" class="popup__save-button">Сохранить</button>
       </form> 
     </div>
@@ -108,7 +70,7 @@
     <article class="card">
       <button type="button" class="card__delete button" aria-label="Удалить карточку"></button>
       <img class="card__pic" src=" " alt=" " id="card-image">
-      <div class="wrapper">
+      <div class="card__wrapper">
         <h2 class="card__place-name"></h2>
         <button type="button" class="card__like button" aria-label="Поставить лайк"></button>
       </div>        
