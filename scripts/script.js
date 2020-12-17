@@ -1,24 +1,3 @@
-const popupProfile = document.querySelector('.popup_edit-profile');
-const profileEditButton = document.querySelector('.profile__edit-button');
-const profileCloseButton = popupProfile.querySelector('.popup__close-button');
-const profileName = document.querySelector('.profile__name');
-const inputName = popupProfile.querySelector('.popup__input_profile_name');
-const profileInfo = document.querySelector('.profile__info');
-const inputInfo = popupProfile.querySelector('.popup__input_profile_info');
-const profileEditorformElement = popupProfile.querySelector('.popup__form');
-
-const pictureEditButton = document.querySelector('.profile__button');
-const popupNewPlace = document.querySelector('.popup_add-place');
-const newPlaceCloseButton = popupNewPlace.querySelector('.popup__close-button');
-const cardsContainer = document.querySelector('.cards');
-const newPlaceFormElement = popupNewPlace.querySelector('.popup__form');
-const template = document.querySelector('.template');
-const popupImgTitle = document.querySelector('.popup__image-heading');
-const popupImgBlock = document.querySelector('.popup_image');
-const imgCloseButton = popupImgBlock.querySelector('.popup__close-button');
-const newPlaceInputName = document.querySelector('.popup__input_picture_name');
-const newPlaceInputLink = document.querySelector('.popup__input_picture_link');
-
 function addInitialCards() {
   const cards = initialCards.map(makeCards);
   cardsContainer.append(...cards);
@@ -82,7 +61,7 @@ function picFormSubmitHandler (event) {
   const newOneCard = makeCards({name:newPlaceInputName.value, link:newPlaceInputLink.value});
   cardsContainer.prepend(newOneCard);
   
-  newPlaceFormElement.reset();
+  newPlaceForm.reset();
   closePopup(popupNewPlace);
 }
 
@@ -91,7 +70,7 @@ addInitialCards();
 profileEditButton.addEventListener('click', openProfileEditor);
 profileCloseButton.addEventListener('click', function() {
   closePopup(popupProfile)});
-profileEditorformElement.addEventListener('submit', profileEditorSubmitHandler); 
+profileEditorForm.addEventListener('submit', profileEditorSubmitHandler); 
 
 pictureEditButton.addEventListener('click', function() {
   openPopup(popupNewPlace)});
@@ -99,4 +78,4 @@ newPlaceCloseButton.addEventListener('click', function() {
   closePopup(popupNewPlace)});
 imgCloseButton.addEventListener('click', function() {
   closePopup(popupImgBlock)});
-newPlaceFormElement.addEventListener('submit', picFormSubmitHandler);
+newPlaceForm.addEventListener('submit', picFormSubmitHandler);

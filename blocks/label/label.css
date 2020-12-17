@@ -1,0 +1,9 @@
+.label {
+  margin: 0 0 30px 0;
+  display: block;
+  position: relative;
+}
+
+.label:last-of-type {
+  margin: 0;
+}
