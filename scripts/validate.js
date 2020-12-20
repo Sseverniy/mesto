@@ -59,5 +59,3 @@ const validationConfig = {
   inactiveButtonClass: 'popup__save-button_invalid',
   inputErrorClass: 'popup__input_invalid',
 }; 
-
-enableValidation(validationConfig);
