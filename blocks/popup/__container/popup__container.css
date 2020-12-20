@@ -9,6 +9,7 @@
   margin: 0 19px;
   box-sizing: border-box;
   position: relative;
+  z-index: 3;
 }
 
 @media screen and (min-width: 488px) {

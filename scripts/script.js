@@ -40,19 +40,27 @@ function openProfileEditor() {
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', keyHandler);
+  popup.addEventListener('click', closeByOverlayClick)
+}
+
+function closeByOverlayClick(evt) {
+  if (evt.target.classList.contains('popup')) {
+    closePopup(evt.target);
+  }
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
-function profileEditorSubmitHandler (event) {
-    event.preventDefault();
+function profileEditorSubmitHandler(event) {
+  event.preventDefault();
 
-    profileName.textContent = inputName.value;
-    profileInfo.textContent = inputInfo.value;
-    
-    closePopup(popupProfile);
+  profileName.textContent = inputName.value;
+  profileInfo.textContent = inputInfo.value;
+
+  closePopup(popupProfile);
 }
 
 function picFormSubmitHandler (event) {
@@ -63,6 +71,13 @@ function picFormSubmitHandler (event) {
   
   newPlaceForm.reset();
   closePopup(popupNewPlace);
+}
+
+function keyHandler(evt) {
+  if (evt.key === "Escape") {
+    const popup = document.querySelector('.popup_opened');
+    closePopup(popup)
+  }
 }
 
 addInitialCards();
