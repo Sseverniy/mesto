@@ -22,15 +22,16 @@ const newPlaceInputLink = document.querySelector('.popup__input_picture_link');
 const popupImg = document.querySelector('.popup__picture');
 
 class Card {
-  constructor (data) {
+  constructor (data, cardSelector) {
     this._name = data.name;
     this._link = data.link;
+    this._cardSelector = cardSelector;
   }
 
   //создаем шаблон карточки
   _getTemplate() {
     const newCard = document
-      .querySelector('.template')
+      .querySelector(this._cardSelector)
       .content
       .querySelector('.card')
       .cloneNode(true);
@@ -81,7 +82,7 @@ class Card {
 };
 
 initialCards.forEach((item) => {
-  const card = new Card(item);
+  const card = new Card(item, '.template');
   const cardElement = card.generateCard();
 
   cardsContainer.append(cardElement);
