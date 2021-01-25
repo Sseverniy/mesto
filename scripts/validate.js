@@ -1,56 +1,65 @@
-function showError(form, input, config) {
-  const error = form.querySelector(`#${input.id}-error`);
-  error.textContent = input.validationMessage;
-  input.classList.add(config.inputErrorClass);
-}
+class FormValidator {
+  constructor(config, form) {
+    this._config = config;
+    this._form = form;
+  };
 
-function hideError(form, input, config) {
-  const error = form.querySelector(`#${input.id}-error`);
-  error.textContent = "";
-  input.classList.remove(config.inputErrorClass);
-}
+  _showError(input) {
+    const error = this._form.querySelector(`#${input.id}-error`);
+    error.textContent = input.validationMessage;
+    input.classList.add(this._config.inputErrorClass);
+  };
 
-function checkInputValidity(form, input, config) {
-  if (input.validity.valid) {
-    hideError(form, input, config);
-  }
-  else {
-    showError(form, input, config);
-  }
-}
+  _hideError(input) {
+    const error = this._form.querySelector(`#${input.id}-error`);
+    error.textContent = "";
+    input.classList.remove(this._config.inputErrorClass);
+  };
 
-function buttonState (button, isActive, config) {
-  if (isActive) {
-    button.classList.remove(config.inactiveButtonClass);
-    button.disabled = false;
-  }
-  else {
-    button.classList.add(config.inactiveButtonClass);
-    button.disabled = true;
-  }
-}
+  _checkInputValidity(input) {
+    if (input.validity.valid) {
+      this._hideError(input);
+    } else {
+      this._showError(input);
+    }
+  };
 
-function setEventListener(form, config) {
-  const inputListEditForm = form.querySelectorAll(config.inputSelector);
-  const submitButton = form.querySelector(config.submitButtonSelector);
+  _buttonState(button, isActive) {
+    if (isActive) {
+      button.classList.remove(this._config.inactiveButtonClass);
+      button.disabled = false;
+    } else {
+      button.classList.add(this._config.inactiveButtonClass);
+      button.disabled = true;
+    }
+  };
 
-  inputListEditForm.forEach(input => {
-    input.addEventListener('input', (evt) => {
-      checkInputValidity(form, input, config);
-      buttonState(submitButton, form.checkValidity(), config);
-    })
-  })
-}
+  _setEventListeners() {
+    const inputListEditForm = this._form.querySelectorAll(
+      this._config.inputSelector
+    );
+    const submitButton = this._form.querySelector(
+      this._config.submitButtonSelector
+    );
 
-function enableValidation(config) {
-  const forms = document.querySelectorAll(config.formSelector);
-  forms.forEach(form => {
-    setEventListener(form, config)
+    inputListEditForm.forEach((input) => {
+      console.log(input.value);
+      input.addEventListener("input", (evt) => {
+        this._checkInputValidity(input);
+        this._buttonState(submitButton, this._form.checkValidity());
+      });
+    });
+  };
 
-    const submitButton = form.querySelector(config.submitButtonSelector);
-    buttonState(submitButton, form.checkValidity(), config);
-  })
-}
+  enableValidation() {
+    this._setEventListeners();
+
+    const submitButton = this._form.querySelector(
+      this._config.submitButtonSelector
+    );
+    this._buttonState(submitButton, this._form.checkValidity());
+  };
+};
 
 const validationConfig = {
   formSelector: '.popup__form',
@@ -59,3 +68,5 @@ const validationConfig = {
   inactiveButtonClass: 'popup__save-button_invalid',
   inputErrorClass: 'popup__input_invalid',
 }; 
+
+export {FormValidator, validationConfig};
