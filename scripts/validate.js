@@ -43,7 +43,6 @@ class FormValidator {
     );
 
     inputListEditForm.forEach((input) => {
-      console.log(input.value);
       input.addEventListener("input", (evt) => {
         this._checkInputValidity(input);
         this._buttonState(submitButton, this._form.checkValidity());

@@ -1,4 +1,4 @@
-import {imgCloseButton} from './index.js'
+import {imgCloseButton, popupImgBlock, popupImgTitle, popupImg, openPopup, closePopup} from './index.js'
 
 export class Card {
   constructor (data, cardSelector) {

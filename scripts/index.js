@@ -16,7 +16,6 @@ const popupNewPlace = document.querySelector('.popup_add-place');
 const newPlaceCloseButton = popupNewPlace.querySelector('.popup__close-button');
 const cardsContainer = document.querySelector('.cards');
 const newPlaceForm = popupNewPlace.querySelector('.popup__form');
-const template = document.querySelector('.template');
 const popupImgTitle = document.querySelector('.popup__image-heading');
 const popupImgBlock = document.querySelector('.popup_image');
 const imgCloseButton = popupImgBlock.querySelector('.popup__close-button');
@@ -108,4 +107,5 @@ pictureEditButton.addEventListener('click', function() {
 newPlaceCloseButton.addEventListener('click', function() {
   closePopup(popupNewPlace)});
 newPlaceForm.addEventListener('submit', handlePicFormSubmit);
-export {imgCloseButton};
+
+export {imgCloseButton, popupImgBlock, popupImgTitle, popupImg, openPopup, closePopup};
