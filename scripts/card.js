@@ -1,4 +1,4 @@
-import {popupImgBlock, popupImgTitle, popupImg, openPopup} from './index.js'
+import {handlePreviewPicture} from './index.js'
 
 export class Card {
   constructor (data, cardSelector) {
@@ -37,7 +37,7 @@ export class Card {
       this._handleLikeIcon();
     });
     this._element.querySelector('.card__pic').addEventListener('click', ()=> {
-      this._handlePreviewPicture();
+      handlePreviewPicture(this._name, this._link);
     });
   }
 
@@ -47,12 +47,5 @@ export class Card {
 
   _handleLikeIcon() {
     this._element.querySelector('.card__like').classList.toggle('card__like_active');
-  }
-
-  _handlePreviewPicture() {
-    popupImgTitle.textContent = this._name;
-    popupImg.alt = this._name;
-    popupImg.src = this._link;
-    openPopup(popupImgBlock);
   }
 };

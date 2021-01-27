@@ -38,10 +38,10 @@ initialCards.forEach((item) => {
 })
 
 const handlePreviewPicture = (cardName, item) => {
-  popupImgTitle.textContent = cardName.textContent;
+  popupImgTitle.textContent = cardName;
   const popupFullSizeImg = document.getElementById('popup-picture');
-  popupFullSizeImg.src = item.link;
-  popupFullSizeImg.alt = item.name;
+  popupFullSizeImg.src = item;
+  popupFullSizeImg.alt = cardName;
   
   openPopup(popupImgBlock);
 };
@@ -129,4 +129,4 @@ placeValidation.enableValidation();
 const profileValidation = new FormValidator(validationConfig, profileEditorForm);
 profileValidation.enableValidation();
 
-export {popupImgBlock, popupImgTitle, popupImg, openPopup};
+export {popupImgBlock, popupImgTitle, popupImg, openPopup, handlePreviewPicture};
