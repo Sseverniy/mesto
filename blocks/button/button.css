@@ -9,3 +9,7 @@
   opacity: 0.6;
   cursor: pointer;
 }
+
+.button:focus {
+  outline: none;
+}
