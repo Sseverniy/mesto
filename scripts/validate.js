@@ -24,7 +24,7 @@ class FormValidator {
     }
   };
 
-  _buttonState(button, isActive) {
+  buttonState(button, isActive) {
     if (isActive) {
       button.classList.remove(this._config.inactiveButtonClass);
       button.disabled = false;
@@ -45,27 +45,14 @@ class FormValidator {
     inputListEditForm.forEach((input) => {
       input.addEventListener("input", (evt) => {
         this._checkInputValidity(input);
-        this._buttonState(submitButton, this._form.checkValidity());
+        this.buttonState(submitButton, this._form.checkValidity());
       });
     });
   };
 
   enableValidation() {
     this._setEventListeners();
-
-    const submitButton = this._form.querySelector(
-      this._config.submitButtonSelector
-    );
-    this._buttonState(submitButton, this._form.checkValidity());
   };
 };
 
-const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_invalid',
-  inputErrorClass: 'popup__input_invalid',
-}; 
-
-export {FormValidator, validationConfig};
+export {FormValidator};

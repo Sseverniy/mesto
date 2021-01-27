@@ -1,4 +1,4 @@
-import {imgCloseButton, popupImgBlock, popupImgTitle, popupImg, openPopup, closePopup} from './index.js'
+import {popupImgBlock, popupImgTitle, popupImg, openPopup} from './index.js'
 
 export class Card {
   constructor (data, cardSelector) {
@@ -38,9 +38,6 @@ export class Card {
     });
     this._element.querySelector('.card__pic').addEventListener('click', ()=> {
       this._handlePreviewPicture();
-    });
-    imgCloseButton.addEventListener('click', () => {
-      closePopup(popupImgBlock);
     });
   }
 

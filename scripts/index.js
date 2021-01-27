@@ -1,5 +1,5 @@
 import {Card} from './card.js';
-import {FormValidator, validationConfig} from './validate.js';
+import {FormValidator} from './validate.js';
 import {initialCards} from './data.js';
 
 const popupProfile = document.querySelector('.popup_edit-profile');
@@ -10,7 +10,6 @@ const inputName = popupProfile.querySelector('.popup__input_profile_name');
 const profileInfo = document.querySelector('.profile__info');
 const inputInfo = popupProfile.querySelector('.popup__input_profile_info');
 const profileEditorForm = popupProfile.querySelector('.popup__form');
-
 const pictureEditButton = document.querySelector('.profile__button');
 const popupNewPlace = document.querySelector('.popup_add-place');
 const newPlaceCloseButton = popupNewPlace.querySelector('.popup__close-button');
@@ -21,8 +20,15 @@ const popupImgBlock = document.querySelector('.popup_image');
 const imgCloseButton = popupImgBlock.querySelector('.popup__close-button');
 const newPlaceInputName = document.querySelector('.popup__input_picture_name');
 const newPlaceInputLink = document.querySelector('.popup__input_picture_link');
-
 const popupImg = document.querySelector('.popup__picture');
+
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_invalid',
+  inputErrorClass: 'popup__input_invalid',
+}; 
 
 initialCards.forEach((item) => {
   const card = new Card(item, '.template');
@@ -43,9 +49,19 @@ const handlePreviewPicture = (cardName, item) => {
 function openProfileEditor() {
   inputName.value = profileName.textContent;
   inputInfo.value = profileInfo.textContent;
-  const validation = new FormValidator(validationConfig, profileEditorForm);
-  validation.enableValidation();
+
+  checkButtonState(popupProfile, profileValidation, profileEditorForm);
   openPopup(popupProfile);
+}
+
+function openNewPlacePopup() {
+  checkButtonState(popupNewPlace, placeValidation, newPlaceForm);
+  openPopup(popupNewPlace);
+}
+
+function checkButtonState(popup, validation, form) {
+  const submitButton = popup.querySelector(validationConfig.submitButtonSelector);
+  validation.buttonState(submitButton, form.checkValidity());
 }
 
 function openPopup(popup) {
@@ -53,9 +69,6 @@ function openPopup(popup) {
   document.addEventListener('keydown', handleKey);
   popup.addEventListener('click', closeByOverlayClick);
   
-  
-  const validation = new FormValidator(validationConfig, newPlaceForm);
-  validation.enableValidation();
 }
 
 function closeByOverlayClick(evt) {
@@ -67,7 +80,7 @@ function closeByOverlayClick(evt) {
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', handleKey);
-
+  popup.removeEventListener('click', closeByOverlayClick);
 }
 
 function handleProfileEditorSubmit(event) {
@@ -102,10 +115,18 @@ profileCloseButton.addEventListener('click', function() {
   closePopup(popupProfile)});
 profileEditorForm.addEventListener('submit', handleProfileEditorSubmit); 
 
-pictureEditButton.addEventListener('click', function() {
-  openPopup(popupNewPlace)});
+pictureEditButton.addEventListener('click', openNewPlacePopup);
 newPlaceCloseButton.addEventListener('click', function() {
   closePopup(popupNewPlace)});
 newPlaceForm.addEventListener('submit', handlePicFormSubmit);
+imgCloseButton.addEventListener('click', () => {
+  closePopup(popupImgBlock);
+});
 
-export {imgCloseButton, popupImgBlock, popupImgTitle, popupImg, openPopup, closePopup};
+const placeValidation = new FormValidator(validationConfig, newPlaceForm);
+placeValidation.enableValidation();
+
+const profileValidation = new FormValidator(validationConfig, profileEditorForm);
+profileValidation.enableValidation();
+
+export {popupImgBlock, popupImgTitle, popupImg, openPopup};
