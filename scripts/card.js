@@ -21,10 +21,11 @@ export class Card {
   generateCard() {
     this._element = this._getTemplate();
     this._setEventListeners();
+    const pictureElement = this._element.querySelector('.card__pic');
     
     this._element.querySelector('.card__place-name').textContent = this._name;
-    this._element.querySelector('.card__pic').alt = this._name;
-    this._element.querySelector('.card__pic').src = this._link;
+    pictureElement.alt = this._name;
+    pictureElement.src = this._link;
     return this._element;
   }
   

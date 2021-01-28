@@ -49,13 +49,14 @@ const handlePreviewPicture = (cardName, item) => {
 function openProfileEditor() {
   inputName.value = profileName.textContent;
   inputInfo.value = profileInfo.textContent;
-
+  
   checkButtonState(popupProfile, profileValidation, profileEditorForm);
   openPopup(popupProfile);
 }
 
 function openNewPlacePopup() {
   checkButtonState(popupNewPlace, placeValidation, newPlaceForm);
+  newPlaceForm.reset();
   openPopup(popupNewPlace);
 }
 
@@ -129,4 +130,4 @@ placeValidation.enableValidation();
 const profileValidation = new FormValidator(validationConfig, profileEditorForm);
 profileValidation.enableValidation();
 
-export {popupImgBlock, popupImgTitle, popupImg, openPopup, handlePreviewPicture};
+export {handlePreviewPicture};
