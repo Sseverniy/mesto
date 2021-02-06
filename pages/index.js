@@ -1,6 +1,7 @@
 import {Card} from '../components/Card.js';
 import {FormValidator} from '../components/FormValidator.js';
 import {initialCards} from '../components/data.js';
+import {Section} from '../components/Section.js';
 
 const popupProfile = document.querySelector('.popup_edit-profile');
 const profileEditButton = document.querySelector('.profile__edit-button');
@@ -30,12 +31,20 @@ const validationConfig = {
   inputErrorClass: 'popup__input_invalid',
 }; 
 
-initialCards.forEach((item) => {
+const сardList = new Section({ items: initialCards,  renderer:(item)=> {
   const card = new Card(item, '.template');
   const cardElement = card.generateCard();
+  сardList.addItem(cardElement);
+}} , '.cards');
 
-  cardsContainer.append(cardElement);
-})
+сardList.renderItems();
+
+// initialCards.forEach((item) => {
+//   const card = new Card(item, '.template');
+//   const cardElement = card.generateCard();
+
+//   cardsContainer.append(cardElement);
+// })
 
 const handlePreviewPicture = (cardName, item) => {
   popupImgTitle.textContent = cardName;
