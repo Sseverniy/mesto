@@ -2,6 +2,7 @@ import {Card} from '../components/Card.js';
 import {FormValidator} from '../components/FormValidator.js';
 import {initialCards} from '../components/data.js';
 import {Section} from '../components/Section.js';
+import {Popup} from '../components/Popup.js';
 
 const popupProfile = document.querySelector('.popup_edit-profile');
 const profileEditButton = document.querySelector('.profile__edit-button');
@@ -46,6 +47,10 @@ const сardList = new Section({ items: initialCards,  renderer:(item)=> {
 //   cardsContainer.append(cardElement);
 // })
 
+const popup = new Popup('.popup_edit-profile');
+popup.setEventListeners();
+
+
 const handlePreviewPicture = (cardName, item) => {
   popupImgTitle.textContent = cardName;
   const popupFullSizeImg = document.getElementById('popup-picture');
@@ -74,24 +79,24 @@ function checkButtonState(popup, validation, form) {
   validation.buttonState(submitButton, form.checkValidity());
 }
 
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', handleKey);
-  popup.addEventListener('click', closeByOverlayClick);
+// function openPopup(popup) {
+//   popup.classList.add('popup_opened');
+//   document.addEventListener('keydown', handleKey);
+//   popup.addEventListener('click', closeByOverlayClick);
   
-}
+// }
 
-function closeByOverlayClick(evt) {
-  if (evt.target.classList.contains('popup')) {
-    closePopup(evt.target);
-  }
-}
+// function closeByOverlayClick(evt) {
+//   if (evt.target.classList.contains('popup')) {
+//     closePopup(evt.target);
+//   }
+// }
 
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', handleKey);
-  popup.removeEventListener('click', closeByOverlayClick);
-}
+// function closePopup(popup) {
+//   popup.classList.remove('popup_opened');
+//   document.removeEventListener('keydown', handleKey);
+//   popup.removeEventListener('click', closeByOverlayClick);
+// }
 
 function handleProfileEditorSubmit(event) {
   event.preventDefault();
@@ -113,16 +118,17 @@ function handlePicFormSubmit(event) {
   closePopup(popupNewPlace);
 }
 
-function handleKey(evt) {
-  if (evt.key === "Escape") {
-    const popup = document.querySelector('.popup_opened');
-    closePopup(popup)
-  }
-}
+// function handleKey(evt) {
+//   if (evt.key === "Escape") {
+//     const popup = document.querySelector('.popup_opened');
+//     closePopup(popup)
+//   }
+// }
 
-profileEditButton.addEventListener('click', openProfileEditor);
-profileCloseButton.addEventListener('click', function() {
-  closePopup(popupProfile)});
+// profileEditButton.addEventListener('click', openProfileEditor);
+profileEditButton.addEventListener('click', ()=>{popup.open();});
+// profileCloseButton.addEventListener('click', function() {
+//   closePopup(popupProfile)});
 profileEditorForm.addEventListener('submit', handleProfileEditorSubmit); 
 
 pictureEditButton.addEventListener('click', openNewPlacePopup);
