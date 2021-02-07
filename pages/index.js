@@ -3,6 +3,7 @@ import {FormValidator} from '../components/FormValidator.js';
 import {initialCards} from '../components/data.js';
 import {Section} from '../components/Section.js';
 import {Popup} from '../components/Popup.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
 
 const popupProfile = document.querySelector('.popup_edit-profile');
 const profileEditButton = document.querySelector('.profile__edit-button');
@@ -22,7 +23,7 @@ const popupImgBlock = document.querySelector('.popup_image');
 const imgCloseButton = popupImgBlock.querySelector('.popup__close-button');
 const newPlaceInputName = document.querySelector('.popup__input_picture_name');
 const newPlaceInputLink = document.querySelector('.popup__input_picture_link');
-const popupImg = document.querySelector('.popup__picture');
+// const popupImg = document.querySelector('.popup__picture');
 
 const validationConfig = {
   formSelector: '.popup__form',
@@ -50,6 +51,8 @@ const сardList = new Section({ items: initialCards,  renderer:(item)=> {
 const popup = new Popup('.popup_edit-profile');
 popup.setEventListeners();
 
+export const popupImg = new PopupWithImage('.popup_image');
+popupImg.setEventListeners();
 
 const handlePreviewPicture = (cardName, item) => {
   popupImgTitle.textContent = cardName;
@@ -135,9 +138,9 @@ pictureEditButton.addEventListener('click', openNewPlacePopup);
 newPlaceCloseButton.addEventListener('click', function() {
   closePopup(popupNewPlace)});
 newPlaceForm.addEventListener('submit', handlePicFormSubmit);
-imgCloseButton.addEventListener('click', () => {
-  closePopup(popupImgBlock);
-});
+// imgCloseButton.addEventListener('click', () => {
+//   closePopup(popupImgBlock);
+// });
 
 const placeValidation = new FormValidator(validationConfig, newPlaceForm);
 placeValidation.enableValidation();

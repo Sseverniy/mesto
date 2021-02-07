@@ -1,4 +1,4 @@
-import {handlePreviewPicture} from '../pages/index.js'
+import {handlePreviewPicture, popupImg } from '../pages/index.js';
 
 export class Card {
   constructor (data, cardSelector) {
@@ -38,7 +38,8 @@ export class Card {
       this._handleLikeIcon();
     });
     this._element.querySelector('.card__pic').addEventListener('click', ()=> {
-      handlePreviewPicture(this._name, this._link);
+      // handlePreviewPicture(this._name, this._link);
+      popupImg.open(this._name, this._link);
     });
   }
 
