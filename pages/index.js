@@ -4,6 +4,7 @@ import {initialCards} from '../components/data.js';
 import {Section} from '../components/Section.js';
 import {Popup} from '../components/Popup.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
 
 const popupProfile = document.querySelector('.popup_edit-profile');
 const profileEditButton = document.querySelector('.profile__edit-button');
@@ -53,6 +54,12 @@ popup.setEventListeners();
 
 export const popupImg = new PopupWithImage('.popup_image');
 popupImg.setEventListeners();
+
+const popupProfileEditor = new PopupWithForm('.popup_edit-profile', (data) => {
+  profileName.textContent = inputName.value;
+  profileInfo.textContent = inputInfo.value;
+});
+popupProfileEditor.setEventListeners();
 
 const handlePreviewPicture = (cardName, item) => {
   popupImgTitle.textContent = cardName;
@@ -132,12 +139,12 @@ function handlePicFormSubmit(event) {
 profileEditButton.addEventListener('click', ()=>{popup.open();});
 // profileCloseButton.addEventListener('click', function() {
 //   closePopup(popupProfile)});
-profileEditorForm.addEventListener('submit', handleProfileEditorSubmit); 
+// profileEditorForm.addEventListener('submit', handleProfileEditorSubmit); 
 
 pictureEditButton.addEventListener('click', openNewPlacePopup);
 newPlaceCloseButton.addEventListener('click', function() {
   closePopup(popupNewPlace)});
-newPlaceForm.addEventListener('submit', handlePicFormSubmit);
+// newPlaceForm.addEventListener('submit', handlePicFormSubmit);
 // imgCloseButton.addEventListener('click', () => {
 //   closePopup(popupImgBlock);
 // });
