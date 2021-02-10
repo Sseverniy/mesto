@@ -1,0 +1,28 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "https://sseverniy.github.io/mesto/\r ### Обзор",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sseverniy/mesto.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sseverniy/mesto/issues"
+  },
+  "homepage": "https://github.com/Sseverniy/mesto#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "webpack": "^5.21.2",
+    "webpack-cli": "^4.5.0"
+  },
+  "dependencies": {
+    "webpack-dev-server": "^3.11.2"
+  }
+}
