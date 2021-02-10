@@ -2,7 +2,6 @@ import {Card} from '../components/Card.js';
 import {FormValidator} from '../components/FormValidator.js';
 import {initialCards} from '../components/data.js';
 import {Section} from '../components/Section.js';
-import {Popup} from '../components/Popup.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo} from '../components/UserInfo.js';
@@ -36,7 +35,7 @@ const validationConfig = {
 }; 
 
 const сardList = new Section({ items: initialCards,  renderer:(item)=> {
-  const card = new Card(item, '.template');
+  const card = new Card(item, '.template', () => {popupImg.open(item.name, item.link);});
   const cardElement = card.generateCard();
   сardList.addItem(cardElement);
 }} , '.cards');
@@ -54,7 +53,7 @@ const сardList = new Section({ items: initialCards,  renderer:(item)=> {
 // popup.setEventListeners();
 
 const userProfile = new UserInfo({userNameSelector:'.profile__name', userInfoSelector:'.profile__info'});
-// userProfile.setUserInfo(userProfile.getUserInfo());
+
 
 export const popupImg = new PopupWithImage('.popup_image');
 popupImg.setEventListeners();
@@ -153,8 +152,11 @@ function handlePicFormSubmit(event) {
 // profileEditButton.addEventListener('click', openProfileEditor);
 profileEditButton.addEventListener('click', ()=>{
   [inputName.value, inputInfo.value] = userProfile.getUserInfo();
+  checkButtonState(popupProfile, profileValidation, profileEditorForm);
   popupProfileEditor.open();});
-pictureEditButton.addEventListener('click', ()=>{popupNewPlaceAdder.open();});
+pictureEditButton.addEventListener('click', ()=>{
+  checkButtonState(popupNewPlace, placeValidation, newPlaceForm);
+  popupNewPlaceAdder.open();});
 // profileCloseButton.addEventListener('click', function() {
 //   closePopup(popupProfile)});
 // profileEditorForm.addEventListener('submit', handleProfileEditorSubmit); 

@@ -1,10 +1,11 @@
 import {handlePreviewPicture, popupImg } from '../pages/index.js';
 
 export class Card {
-  constructor (data, cardSelector) {
+  constructor (data, cardSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   //создаем шаблон карточки
@@ -39,7 +40,8 @@ export class Card {
     });
     this._element.querySelector('.card__pic').addEventListener('click', ()=> {
       // handlePreviewPicture(this._name, this._link);
-      popupImg.open(this._name, this._link);
+      
+      this._handleCardClick();
     });
   }
 
