@@ -5,6 +5,7 @@ import {Section} from '../components/Section.js';
 import {Popup} from '../components/Popup.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
+import { UserInfo} from '../components/UserInfo.js';
 
 const popupProfile = document.querySelector('.popup_edit-profile');
 const profileEditButton = document.querySelector('.profile__edit-button');
@@ -52,12 +53,16 @@ const сardList = new Section({ items: initialCards,  renderer:(item)=> {
 // const popup = new Popup('.popup_edit-profile');
 // popup.setEventListeners();
 
+const userProfile = new UserInfo({userNameSelector:'.profile__name', userInfoSelector:'.profile__info'});
+// userProfile.setUserInfo(userProfile.getUserInfo());
+
 export const popupImg = new PopupWithImage('.popup_image');
 popupImg.setEventListeners();
 
-const popupProfileEditor = new PopupWithForm('.popup_edit-profile', (data) => {
-  profileName.textContent = inputName.value;
-  profileInfo.textContent = inputInfo.value;
+const popupProfileEditor = new PopupWithForm('.popup_edit-profile', () => {
+  // profileName.textContent = inputName.value;
+  // profileInfo.textContent = inputInfo.value;
+  userProfile.setUserInfo(inputName.value, inputInfo.value);
 });
 popupProfileEditor.setEventListeners();
 
@@ -67,6 +72,8 @@ const popupNewPlaceAdder = new PopupWithForm('.popup_add-place', (data) => {
   cardsContainer.prepend(newOneCard);
 })
 popupNewPlaceAdder.setEventListeners();
+
+
 
 
 const handlePreviewPicture = (cardName, item) => {
@@ -144,7 +151,9 @@ function handlePicFormSubmit(event) {
 // }
 
 // profileEditButton.addEventListener('click', openProfileEditor);
-profileEditButton.addEventListener('click', ()=>{popupProfileEditor.open();});
+profileEditButton.addEventListener('click', ()=>{
+  [inputName.value, inputInfo.value] = userProfile.getUserInfo();
+  popupProfileEditor.open();});
 pictureEditButton.addEventListener('click', ()=>{popupNewPlaceAdder.open();});
 // profileCloseButton.addEventListener('click', function() {
 //   closePopup(popupProfile)});
