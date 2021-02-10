@@ -43,6 +43,14 @@ module.exports = {
         test: /\.(svg|png|jpg|gif|woff(2)?|eot|ttf|otf)$/,
         type: "asset/resource",
       },
+      {
+        // регулярное выражение, которое ищет все js файлы
+        test: /\.js$/,
+        // при обработке этих файлов нужно использовать babel-loader
+        use: 'babel-loader',
+        // исключает папку node_modules, файлы в ней обрабатывать не нужно
+        exclude: '/node_modules/'
+      }
     ],
   },
 };  
