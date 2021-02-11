@@ -10,7 +10,7 @@ class FormValidator {
     input.classList.add(this._config.inputErrorClass);
   };
 
-  _hideError(input) {
+  hideError(input) {
     const error = this._form.querySelector(`#${input.id}-error`);
     error.textContent = "";
     input.classList.remove(this._config.inputErrorClass);
@@ -18,7 +18,7 @@ class FormValidator {
 
   _checkInputValidity(input) {
     if (input.validity.valid) {
-      this._hideError(input);
+      this.hideError(input);
     } else {
       this._showError(input);
     }

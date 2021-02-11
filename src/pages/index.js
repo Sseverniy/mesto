@@ -16,8 +16,6 @@ const pictureEditButton = document.querySelector('.profile__button');
 const popupNewPlace = document.querySelector('.popup_add-place');
 const cardsContainer = document.querySelector('.cards');
 const newPlaceForm = popupNewPlace.querySelector('.popup__form');
-const popupImgTitle = document.querySelector('.popup__image-heading');
-const popupImgBlock = document.querySelector('.popup_image');
 const newPlaceInputName = document.querySelector('.popup__input_picture_name');
 const newPlaceInputLink = document.querySelector('.popup__input_picture_link');
 
@@ -33,6 +31,11 @@ function createCard(data) {
   return new Card(data,'.template', () => {popupImg.open(data.name,data.link);});
 }
 
+function checkButtonState(popup, validation, form) {
+  const submitButton = popup.querySelector(validationConfig.submitButtonSelector);
+  validation.buttonState(submitButton, form.checkValidity());
+}
+
 const сardList = new Section({ items: initialCards,  renderer:(item)=> {
   const card = createCard(item);
   const cardElement = card.generateCard();
@@ -44,20 +47,17 @@ const сardList = new Section({ items: initialCards,  renderer:(item)=> {
 const userProfile = new UserInfo({userNameSelector:'.profile__name', userInfoSelector:'.profile__info'});
 
 export const popupImg = new PopupWithImage('.popup_image');
-popupImg.setEventListeners();
 
 const popupProfileEditor = new PopupWithForm('.popup_edit-profile', (data) => {
   console.log(data);
   userProfile.setUserInfo(data['profile-name'], data['profile-info']);
 });
-popupProfileEditor.setEventListeners();
 
 const popupNewPlaceAdder = new PopupWithForm('.popup_add-place', (data) => {
   const cardClass = createCard(data);
   const newOneCard = cardClass.generateCard();
   cardsContainer.prepend(newOneCard);
 })
-popupNewPlaceAdder.setEventListeners();
 
 // const handlePreviewPicture = (cardName, item) => {
 //   popupImgTitle.textContent = cardName;
@@ -82,12 +82,6 @@ popupNewPlaceAdder.setEventListeners();
 //   openPopup(popupNewPlace);
 // }
 
-function checkButtonState(popup, validation, form) {
-  const submitButton = popup.querySelector(validationConfig.submitButtonSelector);
-  validation.buttonState(submitButton, form.checkValidity());
-}
-
-
 // function handleProfileEditorSubmit(event) {
 //   event.preventDefault();
 
@@ -108,13 +102,22 @@ function checkButtonState(popup, validation, form) {
 //   closePopup(popupNewPlace);
 // }
 
+popupImg.setEventListeners();
+popupProfileEditor.setEventListeners();
+popupNewPlaceAdder.setEventListeners();
+
 profileEditButton.addEventListener('click', ()=>{
   [inputName.value, inputInfo.value] = userProfile.getUserInfo();
   checkButtonState(popupProfile, profileValidation, profileEditorForm);
+  profileValidation.hideError(inputName);
+  profileValidation.hideError(inputInfo);
   popupProfileEditor.open();
 });
+
 pictureEditButton.addEventListener('click', ()=>{
   checkButtonState(popupNewPlace, placeValidation, newPlaceForm);
+  placeValidation.hideError(newPlaceInputName);
+  placeValidation.hideError(newPlaceInputLink);
   popupNewPlaceAdder.open();
 });
 
