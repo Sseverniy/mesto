@@ -29,33 +29,31 @@ const validationConfig = {
   inputErrorClass: 'popup__input_invalid',
 }; 
 
+function createCard(data) {
+  return new Card(data,'.template', () => {popupImg.open(data.name,data.link);});
+}
+
 const сardList = new Section({ items: initialCards,  renderer:(item)=> {
-  const card = new Card(item, '.template', () => {popupImg.open(item.name, item.link);});
+  const card = createCard(item);
   const cardElement = card.generateCard();
   сardList.addItem(cardElement);
 }} , '.cards');
 
 сardList.renderItems();
 
-// initialCards.forEach((item) => {
-//   const card = new Card(item, '.template');
-//   const cardElement = card.generateCard();
-
-//   cardsContainer.append(cardElement);
-// })
 const userProfile = new UserInfo({userNameSelector:'.profile__name', userInfoSelector:'.profile__info'});
-
 
 export const popupImg = new PopupWithImage('.popup_image');
 popupImg.setEventListeners();
 
-const popupProfileEditor = new PopupWithForm('.popup_edit-profile', () => {
-  userProfile.setUserInfo(inputName.value, inputInfo.value);
+const popupProfileEditor = new PopupWithForm('.popup_edit-profile', (data) => {
+  console.log(data);
+  userProfile.setUserInfo(data['profile-name'], data['profile-info']);
 });
 popupProfileEditor.setEventListeners();
 
 const popupNewPlaceAdder = new PopupWithForm('.popup_add-place', (data) => {
-  const cardClass = new Card({name:newPlaceInputName.value, link:newPlaceInputLink.value},'.template');
+  const cardClass = createCard(data);
   const newOneCard = cardClass.generateCard();
   cardsContainer.prepend(newOneCard);
 })
