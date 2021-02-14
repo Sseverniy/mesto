@@ -28,7 +28,8 @@ const validationConfig = {
 }; 
 
 function createCard(data) {
-  return new Card(data,'.template', () => {popupImg.open(data.name,data.link);});
+  const card = new Card(data,'.template', () => {popupImg.open(data.name,data.link);});
+  return card.generateCard();
 }
 
 function checkButtonState(popup, validation, form) {
@@ -37,8 +38,7 @@ function checkButtonState(popup, validation, form) {
 }
 
 const сardList = new Section({ items: initialCards,  renderer:(item)=> {
-  const card = createCard(item);
-  const cardElement = card.generateCard();
+  const cardElement = createCard(item);
   сardList.addItem(cardElement);
 }} , '.cards');
 
@@ -54,8 +54,7 @@ const popupProfileEditor = new PopupWithForm('.popup_edit-profile', (data) => {
 });
 
 const popupNewPlaceAdder = new PopupWithForm('.popup_add-place', (data) => {
-  const cardClass = createCard(data);
-  const newOneCard = cardClass.generateCard();
+  const newOneCard = createCard(data);
   cardsContainer.prepend(newOneCard);
 })
 
