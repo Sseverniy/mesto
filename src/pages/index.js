@@ -1,10 +1,11 @@
 import {Card} from '../components/Card.js';
 import {FormValidator} from '../components/FormValidator.js';
-import {initialCards} from '../components/data.js';
+// import {initialCards} from '../components/data.js';
 import {Section} from '../components/Section.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo} from '../components/UserInfo.js';
+import {Api} from '../components/Api.js';
 import '../pages/index.css';
 
 const popupProfile = document.querySelector('.popup_edit-profile');
@@ -25,7 +26,27 @@ const validationConfig = {
   submitButtonSelector: '.popup__save-button',
   inactiveButtonClass: 'popup__save-button_invalid',
   inputErrorClass: 'popup__input_invalid',
-}; 
+};
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-20',
+  headers: {
+    'content-type': 'application/json',
+    authorization: '717001aa-07a2-43d7-857a-292939e342e8'
+  }
+});
+
+//загружаем карточки с сервера
+const cards = api.getInitialCards();
+cards.then((data) => {
+  const initialCards = data;
+  const сardList = new Section({ items: initialCards,  renderer:(item)=> {
+    const cardElement = createCard(item);
+    сardList.addItem(cardElement);
+  }} , '.cards');
+  сardList.renderItems();
+})
+
 
 function createCard(data) {
   const card = new Card(data,'.template', () => {popupImg.open(data.name,data.link);});
@@ -37,19 +58,18 @@ function checkButtonState(popup, validation, form) {
   validation.buttonState(submitButton, form.checkValidity());
 }
 
-const сardList = new Section({ items: initialCards,  renderer:(item)=> {
-  const cardElement = createCard(item);
-  сardList.addItem(cardElement);
-}} , '.cards');
+// const сardList = new Section({ items: initialCards,  renderer:(item)=> {
+//   const cardElement = createCard(item);
+//   сardList.addItem(cardElement);
+// }} , '.cards');
 
-сardList.renderItems();
+// сardList.renderItems();
 
 const userProfile = new UserInfo({userNameSelector:'.profile__name', userInfoSelector:'.profile__info'});
 
 export const popupImg = new PopupWithImage('.popup_image');
 
 const popupProfileEditor = new PopupWithForm('.popup_edit-profile', (data) => {
-  console.log(data);
   userProfile.setUserInfo(data['profile-name'], data['profile-info']);
 });
 
