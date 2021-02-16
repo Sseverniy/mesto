@@ -43,5 +43,7 @@
 @import url(../blocks/popup/_image/popup_image.css);
 @import url(../blocks/popup/__close-button/_image/popup__close-button_image.css);
 @import url(../blocks/popup/__input/_invalid/popup__input_invalid.css);
+@import url(../blocks/popup/__heading/_delete/popup__heading_delete.css);
+@import url(../blocks/popup/__save-button/_delete/popup__save-button_delete.css);
 @import url(../blocks/popup/__save-button/_invalid/popup__save-button_invalid.css);
 @import url(../blocks/card/__like/_active/card__like_active.css);
