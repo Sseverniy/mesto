@@ -45,5 +45,4 @@ export class Api {
       }),
     }).then((res) => this._checkStatus(res));
   }
-
 }
