@@ -36,46 +36,49 @@ const api = new Api({
   }
 });
 
+function createCard(data) {
+  const card = new Card(data,'.template', () => {popupImg.open(data.name,data.link);});
+  return card.generateCard();
+}
+
 //загружаем карточки с сервера
-const cards = api.getInitialCards();
-cards.then((data) => {
-  const initialCards = data;
-  const сardList = new Section({ items: initialCards,  renderer:(item)=> {
+const allCards = api.getInitialCards();
+allCards.then((data) => {
+  const сardList = new Section({ items: data,  renderer:(item)=> {
     const cardElement = createCard(item);
     сardList.addItem(cardElement);
   }} , '.cards');
   сardList.renderItems();
 })
 
-
-function createCard(data) {
-  const card = new Card(data,'.template', () => {popupImg.open(data.name,data.link);});
-  return card.generateCard();
-}
-
 function checkButtonState(popup, validation, form) {
   const submitButton = popup.querySelector(validationConfig.submitButtonSelector);
   validation.buttonState(submitButton, form.checkValidity());
 }
 
-// const сardList = new Section({ items: initialCards,  renderer:(item)=> {
-//   const cardElement = createCard(item);
-//   сardList.addItem(cardElement);
-// }} , '.cards');
-
-// сardList.renderItems();
-
 const userProfile = new UserInfo({userNameSelector:'.profile__name', userInfoSelector:'.profile__info'});
 
 export const popupImg = new PopupWithImage('.popup_image');
 
-const popupProfileEditor = new PopupWithForm('.popup_edit-profile', (data) => {
-  userProfile.setUserInfo(data['profile-name'], data['profile-info']);
+const popupProfileEditor = new PopupWithForm('.popup_edit-profile', () => {
+  api.getUserInfo()
+  .then(() => {
+    //вставляем данные с полей ввода в текст разметки
+    userProfile.setUserInfo(data.name, data.about);
+  })
+  
 });
+// const popupProfileEditor = new PopupWithForm('.popup_edit-profile', (data) => {
+//   userProfile.setUserInfo(data['profile-name'], data['profile-info']);
+// });
 
 const popupNewPlaceAdder = new PopupWithForm('.popup_add-place', (data) => {
-  const newOneCard = createCard(data);
-  cardsContainer.prepend(newOneCard);
+  //добавялем карточку на сервер и вставляем в разметку
+  api.addNewCard(data)
+  .then(data=> {
+    const newOneCard = createCard(data);
+    cardsContainer.prepend(newOneCard);
+  })
 })
 
 // const handlePreviewPicture = (cardName, item) => {
@@ -126,11 +129,17 @@ popupProfileEditor.setEventListeners();
 popupNewPlaceAdder.setEventListeners();
 
 profileEditButton.addEventListener('click', ()=>{
-  [inputName.value, inputInfo.value] = userProfile.getUserInfo();
-  checkButtonState(popupProfile, profileValidation, profileEditorForm);
-  profileValidation.hideError(inputName);
-  profileValidation.hideError(inputInfo);
-  popupProfileEditor.open();
+  api.getUserInfo()
+  .then(data => {
+    //подставляем данные пользователя с сервера в значения полей форм
+    [inputName.value, inputInfo.value] = [data.name, data.about];
+    checkButtonState(popupProfile, profileValidation, profileEditorForm);
+    profileValidation.hideError(inputName);
+    profileValidation.hideError(inputInfo);
+    popupProfileEditor.open();
+  })
+  // [inputName.value, inputInfo.value] = userProfile.getUserInfo();
+
 });
 
 pictureEditButton.addEventListener('click', ()=>{
