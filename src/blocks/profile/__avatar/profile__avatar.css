@@ -3,6 +3,29 @@
   height: 120px;
   margin: 42px auto 0;
   border-radius: 100%;
+  background-size: cover;
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+
+.profile__avatar::after {
+  content: '';
+  position: absolute;
+  background-image: url(../../../images/editlogo.svg);
+  background-color:rgba(0, 0, 0, 0.8);
+  background-position: center;
+  background-size: 26px 26px;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s linear;
+  width: 120px;
+  height: 120px;
+}
+
+.profile__avatar:hover::after {
+  opacity: 1;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 880px) {
