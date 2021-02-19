@@ -1,6 +1,5 @@
 import {Card} from '../components/Card.js';
 import {FormValidator} from '../components/FormValidator.js';
-// import {initialCards} from '../components/data.js';
 import {Section} from '../components/Section.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
@@ -18,8 +17,15 @@ const pictureEditButton = document.querySelector('.profile__button');
 const popupNewPlace = document.querySelector('.popup_add-place');
 const cardsContainer = document.querySelector('.cards');
 const newPlaceForm = popupNewPlace.querySelector('.popup__form');
+const newPlaceSubmitButton = popupNewPlace.querySelector('.popup__save-button');
+const popupAvatar= document.querySelector('.popup_avatar');
+const avatarEditorForm = popupAvatar.querySelector('.popup__form');
 const newPlaceInputName = document.querySelector('.popup__input_picture_name');
 const newPlaceInputLink = document.querySelector('.popup__input_picture_link');
+const avatarElement = document.querySelector('.profile__avatar');
+const profileSubmitButton = popupProfile.querySelector('.popup__save-button');
+const avatarSubmitButton = popupAvatar.querySelector('.popup__save-button');
+const avatarInput = popupAvatar.querySelector('.popup__input');
 export const myId = '75daeea6e179d67340003a93';
 
 const validationConfig = {
@@ -41,6 +47,14 @@ function removeCard(id, card) {
   }
 }
 
+function renderLoading(isLoading, button, initialText) {
+  if(isLoading){
+    button.textContent = 'Сохранение...';
+  } else {
+    button.textContent = initialText;
+  }
+}
+
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-20',
   headers: {
@@ -57,8 +71,8 @@ const createCard = (data) => {
     handleCardClick: () => {
       popupImg.open(data.name,data.link)
     },
-    handleLikeClick: (likes) => {
-      if(card.isLiked(likes)){
+    handleLikeClick: (like) => {
+      if(like.classList.contains('card__like_active')){
         api.deleteLike(data._id)
           .then(data => {
             card.updateLikesLength(data.likes)
@@ -81,7 +95,7 @@ const createCard = (data) => {
 }
 
 const userProfile = new UserInfo({userNameSelector:'.profile__name', userInfoSelector:'.profile__info', userAvatarSelector: '.profile__avatar'});
-//загружаем карточки с сервера
+//загружаем карточки с сервера и вставляем в разметку
 api.getAllInitialData()
   .then((data) => {
     const [ initialCards, userProfileData] = data;
@@ -98,6 +112,7 @@ api.getAllInitialData()
   })
   .catch((err) => {console.log(err)});
 
+//меняем состояние кнопки в зависимости от валидности формы
 function checkButtonState(popup, validation, form) {
   const submitButton = popup.querySelector(validationConfig.submitButtonSelector);
   validation.buttonState(submitButton, form.checkValidity());
@@ -105,53 +120,48 @@ function checkButtonState(popup, validation, form) {
 
 export const popupImg = new PopupWithImage('.popup_image');
 
-const popupProfileEditor = new PopupWithForm('.popup_edit-profile', () => {
-  
-  api.getUserInfo()
+const popupProfileEditor = new PopupWithForm('.popup_edit-profile', (data) => {
+  renderLoading(true, profileSubmitButton);
+  api.updateProfileInfo(data)
   .then((data)=> {
-        //вставляем данные с полей ввода в текст разметки
-        userProfile.setUserInfo(data.name, data.about);
+      //вставляем данные с полей ввода в текст разметки
+      userProfile.updateUserProfile(data.name, data.about);
   })
-  .catch((err) => {console.log(err)});
-  
+  .catch((err) => {console.log(err)})
+  .finally(() => {
+    renderLoading(false, profileSubmitButton, 'Сохранение');
+  });
 });
 
-// const popupProfileEditor = new PopupWithForm('.popup_edit-profile', (data) => {
-//   userProfile.setUserInfo(data['profile-name'], data['profile-info']);
-// });
+const avatarEditor= new PopupWithForm('.popup_avatar', (data) => {
+  renderLoading(true, avatarSubmitButton);
+  api.updateAvatar(data)
+  .then(() => {
+    userProfile.updateAvatar(data.avatar)
+    avatarEditor.close();
+  })
+  .finally(() => {
+    renderLoading(false, avatarSubmitButton, 'Сохранить');
+  });
+})
 
 const popupNewPlaceAdder = new PopupWithForm('.popup_add-place', (data) => {
+  renderLoading(true, newPlaceSubmitButton);
   //добавялем карточку на сервер и вставляем в разметку
   api.addNewCard(data)
   .then(data=> {
     const newOneCard = createCard(data);
     cardsContainer.prepend(newOneCard);
   })
+  .finally(() => {
+    renderLoading(false, newPlaceSubmitButton, 'Сохранить');
+  });
 })
-
-// function handleProfileEditorSubmit(event) {
-//   event.preventDefault();
-
-//   profileName.textContent = inputName.value;
-//   profileInfo.textContent = inputInfo.value;
-  
-//   closePopup(popupProfile);
-// }
-
-// function handlePicFormSubmit(event) {
-//   event.preventDefault();
-  
-//   const cardClass = new Card({name:newPlaceInputName.value, link:newPlaceInputLink.value},'.template');
-//   const newOneCard = cardClass.generateCard();
-//   cardsContainer.prepend(newOneCard);
-  
-//   newPlaceForm.reset();
-//   closePopup(popupNewPlace);
-// }
 
 popupImg.setEventListeners();
 popupProfileEditor.setEventListeners();
 popupNewPlaceAdder.setEventListeners();
+avatarEditor.setEventListeners();
 
 profileEditButton.addEventListener('click', ()=>{
   api.getUserInfo()
@@ -163,8 +173,6 @@ profileEditButton.addEventListener('click', ()=>{
     profileValidation.hideError(inputInfo);
     popupProfileEditor.open();
   })
-  // [inputName.value, inputInfo.value] = userProfile.getUserInfo();
-
 });
 
 pictureEditButton.addEventListener('click', ()=>{
@@ -174,8 +182,17 @@ pictureEditButton.addEventListener('click', ()=>{
   popupNewPlaceAdder.open();
 });
 
+avatarElement.addEventListener('click', ()=>{
+  checkButtonState(popupAvatar, avatarValidation, avatarEditorForm);
+  avatarValidation.hideError(avatarInput);
+  avatarEditor.open();
+});
+
 const placeValidation = new FormValidator(validationConfig, newPlaceForm);
 placeValidation.enableValidation();
 
 const profileValidation = new FormValidator(validationConfig, profileEditorForm);
 profileValidation.enableValidation();
+
+const avatarValidation = new FormValidator(validationConfig, avatarEditorForm);
+avatarValidation.enableValidation();
