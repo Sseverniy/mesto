@@ -32,20 +32,8 @@ export class Card {
     this._element.querySelector('.card__like').classList.toggle('card__like_active');
   }
 
-  isLiked(likes) {
-    if (likes.forEach(like => {
-     like._id === myId
-    })) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
-
   updateLikesLength(data) {
     this._likes = data;
-    console.log(this._likes)
     this.updateLikeCounter();
     this.handleLikeIcon();
   }
@@ -62,6 +50,7 @@ export class Card {
     this._setEventListeners();
     const pictureElement = this._element.querySelector('.card__pic');
     this._deleteButton = this._element.querySelector('.card__delete');
+    this._likeButton = this._element.querySelector('.card__like');
     
     
     this._element.querySelector('.card__place-name').textContent = this._name;
@@ -69,6 +58,12 @@ export class Card {
     pictureElement.src = this._link;
     this.updateLikeCounter();
     this._checkCardOwner();
+
+    this._likes.forEach(like => {
+      if (like._id === myId) {
+        this._likeButton.classList.add('card__like_active');
+      }
+    })
 
     return this._element;
   }
@@ -79,7 +74,7 @@ export class Card {
       this._handleDeleteIconClick();
     });
     this._element.querySelector('.card__like').addEventListener('click', ()=> {
-      this._handleLikeClick(this._likes);
+      this._handleLikeClick(this._likeButton);
     });
     this._element.querySelector('.card__pic').addEventListener('click', ()=> {
       this._handleCardClick();

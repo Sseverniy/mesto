@@ -28,26 +28,26 @@ export class Api {
     return Promise.all([this.getInitialCards(), this.getUserInfo()])
   }
 
-  updateProfileInfo(name, about) {
+  updateProfileInfo(data) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        name: name,
-        about: about,
+        name: data.name,
+        about: data.about,
       }),
     }).then((res) => this._checkStatus(res));
   }
 
-  updateAvatar(avatar){
+  updateAvatar(data){
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        avatar: avatar
+        avatar: data.avatar
       })
     })
-    .then(res => this._checkResStatus(res));
+    .then((res) => this._checkStatus(res));
   }
 
   addNewCard(data) {
@@ -82,5 +82,4 @@ export class Api {
       headers: this._headers,
     }).then((res) => this._checkStatus(res));
   }
-
-}
+};

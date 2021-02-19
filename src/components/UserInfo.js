@@ -16,4 +16,13 @@ export class UserInfo {
     this._userInfo.textContent = about;
     this._userAvatar.style.backgroundImage = `url(${avatar})`;
   }
+  
+  updateUserProfile(name, about) {
+    this._userName.textContent = name;
+    this._userInfo.textContent = about;
+  }
+  
+  updateAvatar(avatar) {
+    this._userAvatar.style.backgroundImage = `url(${avatar})`;
+  }
 };
