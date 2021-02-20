@@ -26,7 +26,6 @@ const avatarElement = document.querySelector('.profile__avatar');
 const profileSubmitButton = popupProfile.querySelector('.popup__save-button');
 const avatarSubmitButton = popupAvatar.querySelector('.popup__save-button');
 const avatarInput = popupAvatar.querySelector('.popup__input');
-export const myId = '75daeea6e179d67340003a93';
 
 const validationConfig = {
   formSelector: '.popup__form',
@@ -65,9 +64,8 @@ const api = new Api({
 
 const deleteConfirmation = new PopupWithSubmit('.popup_delete');
 
-//лайк добавляется, но не убирается
 const createCard = (data) => {
-  const card = new Card(data,'.template', {
+  const card = new Card({data, myId: userProfile.returnUserId()}, '.template', {
     handleCardClick: () => {
       popupImg.open(data.name,data.link)
     },
@@ -99,6 +97,7 @@ const userProfile = new UserInfo({userNameSelector:'.profile__name', userInfoSel
 api.getAllInitialData()
   .then((data) => {
     const [ initialCards, userProfileData] = data;
+    userProfile.getUserId(userProfileData._id);
     const cardList = new Section({
       items: initialCards,
       renderer:(item) => {

@@ -1,12 +1,12 @@
-import {myId} from '../pages/index.js';
+// import {myId} from '../pages/index.js';
 
 export class Card {
-  constructor (data, cardSelector, {handleCardClick, handleLikeClick, handleDeleteIconClick}) {
+  constructor ({data, myId}, cardSelector, {handleCardClick, handleLikeClick, handleDeleteIconClick}) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
     this._owner = data.owner._id;
-    this._id = data._id;
+    this._myId = myId;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._handleLikeClick = handleLikeClick;
@@ -39,7 +39,7 @@ export class Card {
   }
 
   _checkCardOwner(){
-    if(!(this._owner === myId)){
+    if(!(this._owner === this._myId)){
       this._deleteButton.style.display = 'none';
     }
   }
@@ -60,7 +60,7 @@ export class Card {
     this._checkCardOwner();
 
     this._likes.forEach(like => {
-      if (like._id === myId) {
+      if (like._id === this._myId) {
         this._likeButton.classList.add('card__like_active');
       }
     })
