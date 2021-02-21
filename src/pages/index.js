@@ -65,7 +65,7 @@ const api = new Api({
 const deleteConfirmation = new PopupWithSubmit('.popup_delete');
 
 const createCard = (data) => {
-  const card = new Card({data, myId: userProfile.returnUserId()}, '.template', {
+  const card = new Card({data, myId: userProfile.getUserId()}, '.template', {
     handleCardClick: () => {
       popupImg.open(data.name,data.link)
     },
@@ -97,7 +97,7 @@ const userProfile = new UserInfo({userNameSelector:'.profile__name', userInfoSel
 api.getAllInitialData()
   .then((data) => {
     const [ initialCards, userProfileData] = data;
-    userProfile.getUserId(userProfileData._id);
+    userProfile.setUserId(userProfileData._id);
     const cardList = new Section({
       items: initialCards,
       renderer:(item) => {

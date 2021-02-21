@@ -26,11 +26,11 @@ export class UserInfo {
     this._userAvatar.style.backgroundImage = `url(${avatar})`;
   }
 
-  getUserId(id) {
+  setUserId(id) {
     this._userId = id;
   }
 
-  returnUserId() {
+  getUserId() {
     return this._userId;
   }
 };
