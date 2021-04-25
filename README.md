@@ -1,5 +1,5 @@
 # Проект Место:Russia
-https://sseverniy.github.io/mesto/index.html
+[Ссылка на проект](https://sseverniy.github.io/mesto/index.html)
 ### Обзор
 
 Этот проект представляет собой галерею красивейших мест России на странице пользователя.  
